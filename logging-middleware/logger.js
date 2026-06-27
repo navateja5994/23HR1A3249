@@ -1,0 +1,30 @@
+const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiYXVkIjoiaHR0cDovLzIwLjI0NC41Ni4xNDQvZXZhbHVhdGlvbi1zZXJ2aWNlIiwiZW1haWwiOiJuYXZhdGVqYXI4MEBnbWFpbC5jb20iLCJleHAiOjE3ODI1NDMzNDgsImlhdCI6MTc4MjU0MjQ0OCwiaXNzIjoiQWZmb3JkIE1lZGljYWwgVGVjaG5vbG9naWVzIFByaXZhdGUgTGltaXRlZCIsImp0aSI6IjIyZmU4OGJkLWUwNzYtNDA0NS04MzAxLTgyMTE0ZmE0MzEyOCIsImxvY2FsZSI6ImVuLUlOIiwibmFtZSI6Im5hbGxhcGFyZWRkeSBuYXZhdGVqYXJlZGR5Iiwic3ViIjoiZGNlNWM3OTUtYTdmNy00NWNiLTg0M2ItZGZmMTAyMGM3NDE5In0sImVtYWlsIjoibmF2YXRlamFyODBAZ21haWwuY29tIiwibmFtZSI6Im5hbGxhcGFyZWRkeSBuYXZhdGVqYXJlZGR5Iiwicm9sbE5vIjoiMjNocjFhMzI0OSIsImFjY2Vzc0NvZGUiOiJhVGt5YnMiLCJjbGllbnRJRCI6ImRjZTVjNzk1LWE3ZjctNDVjYi04NDNiLWRmZjEwMjBjNzQxOSIsImNsaWVudFNlY3JldCI6IlFTelZiZGNGZ1ZSanZmYXIifQ.SGQ9w5BO2nc8_X4l8jnPUUejjXunRtKsMcvq20S8a-k";
+
+async function Log(stack, level, pkg, message) {
+  try {
+    const response = await fetch(
+      "http://4.224.186.213/evaluation-service/logs",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${TOKEN}`
+        },
+        body: JSON.stringify({
+          stack,
+          level,
+          package: pkg,
+          message
+        })
+      }
+    );
+
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export default Log;
